@@ -59,8 +59,10 @@ class MainWindow(QWidget):
 
         self.qvbox = QVBoxLayout()
         self.qhbox = QHBoxLayout()
+        self.qhbox1 = QHBoxLayout()
 
         self.qvbox.addLayout(self.qhbox)
+        self.qvbox.addLayout(self.qhbox1)
 
         self.qhbox.addWidget(self.name_box)
 
@@ -86,6 +88,9 @@ class MainWindow(QWidget):
     def _update_teacher_tab(self):
         self.cursor.execute("select * from teacher;")
         records = list(self.cursor.fetchall())
+
+        button = QPushButton("Обновить")
+        self.qhbox1.addWidget(button)
 
         self.teacher_tab.setRowCount(len(records) + 1)
 
@@ -278,10 +283,15 @@ class MainWindow(QWidget):
 
         self.qvbox = QVBoxLayout()
         self.qhbox = QHBoxLayout()
+        self.qhbox1 = QHBoxLayout()
 
         self.qhbox.addWidget(self.name_box)
 
         self.qvbox.addLayout(self.qhbox)
+        self.qvbox.addLayout(self.qhbox1)
+
+        self.button = QPushButton("Обновить")
+        self.qhbox1.addWidget(self.button)
 
         self.shedule_tab2.setLayout(self.qvbox)
 
@@ -704,8 +714,8 @@ class MainWindow(QWidget):
         self.tuesday_table = QTableWidget()
         self.tuesday_table.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
 
-        self.tuesday_table.setColumnCount(6)
-        self.tuesday_table.setHorizontalHeaderLabels(["id-Недели", "Предмет", "Время", "Кабинет", "Лектор", ""])
+        self.tuesday_table.setColumnCount(8)
+        self.tuesday_table.setHorizontalHeaderLabels(["id-Недели", "Предмет", "Время", "Кабинет", "Лектор", "", "", "Идентификатор"])
 
         self._update_tuesday_table()
 
@@ -720,23 +730,103 @@ class MainWindow(QWidget):
 
         self.tuesday_table.setRowCount(len(records) + 1)
 
+        a = len(records)
+
         for i, records in enumerate(records):
-            joinButton = QPushButton("Join")
+            changeButton = QPushButton("Изменить")
+            changeButton1 = QPushButton("Изменить")
+            changeButton2 = QPushButton("Изменить")
+            changeButton3 = QPushButton("Изменить")
+            changeButton4 = QPushButton("Изменить")
+            changeButton5 = QPushButton("Изменить")
+            changeButton6 = QPushButton("Изменить")
+            changeButton7 = QPushButton("Изменить")
+            changeButton8 = QPushButton("Изменить")
+            changeButton9 = QPushButton("Изменить")
+
+            deleteButton = QPushButton("Удалить")
+            deleteButton1 = QPushButton("Удалить")
+            deleteButton2 = QPushButton("Удалить")
+            deleteButton3 = QPushButton("Удалить")
+            deleteButton4 = QPushButton("Удалить")
+            deleteButton5 = QPushButton("Удалить")
+            deleteButton6 = QPushButton("Удалить")
+            deleteButton7 = QPushButton("Удалить")
+            deleteButton8 = QPushButton("Удалить")
+            deleteButton9 = QPushButton("Удалить")
+
+            addButton = QPushButton("Добавить")
+            NoneButton = QPushButton("☭")
 
             self.tuesday_table.setItem(i, 0, QTableWidgetItem(str(records[0])))
             self.tuesday_table.setItem(i, 1, QTableWidgetItem(str(records[3])))
             self.tuesday_table.setItem(i, 2, QTableWidgetItem(str(records[5])))
             self.tuesday_table.setItem(i, 3, QTableWidgetItem(str(records[4])))
             self.tuesday_table.setItem(i, 4, QTableWidgetItem(str(records[6])))
-            self.tuesday_table.setCellWidget(i, 5, joinButton)
+            self.tuesday_table.setItem(i, 7, QTableWidgetItem(str(records[1])))
+
+            self.tuesday_table.setCellWidget(0, 5, changeButton)
+            self.tuesday_table.setCellWidget(1, 5, changeButton1)
+            self.tuesday_table.setCellWidget(2, 5, changeButton2)
+            self.tuesday_table.setCellWidget(3, 5, changeButton3)
+            self.tuesday_table.setCellWidget(4, 5, changeButton4)
+            self.tuesday_table.setCellWidget(5, 5, changeButton5)
+            self.tuesday_table.setCellWidget(6, 5, changeButton6)
+            self.tuesday_table.setCellWidget(7, 5, changeButton7)
+            self.tuesday_table.setCellWidget(8, 5, changeButton8)
+            self.tuesday_table.setCellWidget(9, 5, changeButton9)
+
+            self.tuesday_table.setCellWidget(0, 6, deleteButton)
+            self.tuesday_table.setCellWidget(1, 6, deleteButton1)
+            self.tuesday_table.setCellWidget(2, 6, deleteButton2)
+            self.tuesday_table.setCellWidget(3, 6, deleteButton3)
+            self.tuesday_table.setCellWidget(4, 6, deleteButton4)
+            self.tuesday_table.setCellWidget(5, 6, deleteButton5)
+            self.tuesday_table.setCellWidget(6, 6, deleteButton6)
+            self.tuesday_table.setCellWidget(7, 6, deleteButton7)
+            self.tuesday_table.setCellWidget(8, 6, deleteButton8)
+            self.tuesday_table.setCellWidget(9, 6, deleteButton9)
+
+            self.tuesday_table.setItem(a, 0, QTableWidgetItem(""))
+            self.tuesday_table.setItem(a, 1, QTableWidgetItem(""))
+            self.tuesday_table.setItem(a, 2, QTableWidgetItem(""))
+            self.tuesday_table.setItem(a, 3, QTableWidgetItem(""))
+            self.tuesday_table.setItem(a, 4, QTableWidgetItem(""))
+            self.tuesday_table.setCellWidget(a, 5, NoneButton)
+            self.tuesday_table.setCellWidget(a, 6, addButton)
+
+            changeButton.clicked.connect(lambda num: self._change_item_from_mond(num=1))
+            changeButton1.clicked.connect(lambda num: self._change_item_from_mond(num=2))
+            changeButton2.clicked.connect(lambda num: self._change_item_from_mond(num=3))
+            changeButton3.clicked.connect(lambda num: self._change_item_from_mond(num=4))
+            changeButton4.clicked.connect(lambda num: self._change_item_from_mond(num=5))
+            changeButton5.clicked.connect(lambda num: self._change_item_from_mond(num=6))
+            changeButton6.clicked.connect(lambda num: self._change_item_from_mond(num=7))
+            changeButton7.clicked.connect(lambda num: self._change_item_from_mond(num=8))
+            changeButton8.clicked.connect(lambda num: self._change_item_from_mond(num=9))
+            changeButton9.clicked.connect(lambda num: self._change_item_from_mond(num=10))
+
+            deleteButton.clicked.connect(lambda num: self._delete_item_from_mond(num=0))
+            deleteButton1.clicked.connect(lambda num: self._delete_item_from_mond(num=1))
+            deleteButton2.clicked.connect(lambda num: self._delete_item_from_mond(num=2))
+            deleteButton3.clicked.connect(lambda num: self._delete_item_from_mond(num=3))
+            deleteButton4.clicked.connect(lambda num: self._delete_item_from_mond(num=4))
+            deleteButton5.clicked.connect(lambda num: self._delete_item_from_mond(num=5))
+            deleteButton6.clicked.connect(lambda num: self._delete_item_from_mond(num=6))
+            deleteButton7.clicked.connect(lambda num: self._delete_item_from_mond(num=7))
+            deleteButton8.clicked.connect(lambda num: self._delete_item_from_mond(num=8))
+            deleteButton9.clicked.connect(lambda num: self._delete_item_from_mond(num=9))
+
+            addButton.clicked.connect(lambda: self._add_item_to_mondaytable())
+
         self.tuesday_table.resizeRowsToContents()
 
     def _create_wednesday_table(self):
         self.wednesday_table = QTableWidget()
         self.wednesday_table.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
 
-        self.wednesday_table.setColumnCount(6)
-        self.wednesday_table.setHorizontalHeaderLabels(["id-Недели", "Предмет", "Время", "Кабинет", "Лектор", ""])
+        self.wednesday_table.setColumnCount(8)
+        self.wednesday_table.setHorizontalHeaderLabels(["id-Недели", "Предмет", "Время", "Кабинет", "Лектор", "", "", "Идентификатор"])
 
         self._update_wednesday_table()
 
@@ -751,23 +841,103 @@ class MainWindow(QWidget):
 
         self.wednesday_table.setRowCount(len(records) + 1)
 
+        a = len(records)
+
         for i, records in enumerate(records):
-            joinButton = QPushButton("Join")
+            changeButton = QPushButton("Изменить")
+            changeButton1 = QPushButton("Изменить")
+            changeButton2 = QPushButton("Изменить")
+            changeButton3 = QPushButton("Изменить")
+            changeButton4 = QPushButton("Изменить")
+            changeButton5 = QPushButton("Изменить")
+            changeButton6 = QPushButton("Изменить")
+            changeButton7 = QPushButton("Изменить")
+            changeButton8 = QPushButton("Изменить")
+            changeButton9 = QPushButton("Изменить")
+
+            deleteButton = QPushButton("Удалить")
+            deleteButton1 = QPushButton("Удалить")
+            deleteButton2 = QPushButton("Удалить")
+            deleteButton3 = QPushButton("Удалить")
+            deleteButton4 = QPushButton("Удалить")
+            deleteButton5 = QPushButton("Удалить")
+            deleteButton6 = QPushButton("Удалить")
+            deleteButton7 = QPushButton("Удалить")
+            deleteButton8 = QPushButton("Удалить")
+            deleteButton9 = QPushButton("Удалить")
+
+            addButton = QPushButton("Добавить")
+            NoneButton = QPushButton("☭")
 
             self.wednesday_table.setItem(i, 0, QTableWidgetItem(str(records[0])))
             self.wednesday_table.setItem(i, 1, QTableWidgetItem(str(records[3])))
             self.wednesday_table.setItem(i, 2, QTableWidgetItem(str(records[5])))
             self.wednesday_table.setItem(i, 3, QTableWidgetItem(str(records[4])))
             self.wednesday_table.setItem(i, 4, QTableWidgetItem(str(records[6])))
-            self.wednesday_table.setCellWidget(i, 5, joinButton)
+            self.wednesday_table.setItem(i, 7, QTableWidgetItem(str(records[1])))
+
+            self.wednesday_table.setCellWidget(0, 5, changeButton)
+            self.wednesday_table.setCellWidget(1, 5, changeButton1)
+            self.wednesday_table.setCellWidget(2, 5, changeButton2)
+            self.wednesday_table.setCellWidget(3, 5, changeButton3)
+            self.wednesday_table.setCellWidget(4, 5, changeButton4)
+            self.wednesday_table.setCellWidget(5, 5, changeButton5)
+            self.wednesday_table.setCellWidget(6, 5, changeButton6)
+            self.wednesday_table.setCellWidget(7, 5, changeButton7)
+            self.wednesday_table.setCellWidget(8, 5, changeButton8)
+            self.wednesday_table.setCellWidget(9, 5, changeButton9)
+
+            self.wednesday_table.setCellWidget(0, 6, deleteButton)
+            self.wednesday_table.setCellWidget(1, 6, deleteButton1)
+            self.wednesday_table.setCellWidget(2, 6, deleteButton2)
+            self.wednesday_table.setCellWidget(3, 6, deleteButton3)
+            self.wednesday_table.setCellWidget(4, 6, deleteButton4)
+            self.wednesday_table.setCellWidget(5, 6, deleteButton5)
+            self.wednesday_table.setCellWidget(6, 6, deleteButton6)
+            self.wednesday_table.setCellWidget(7, 6, deleteButton7)
+            self.wednesday_table.setCellWidget(8, 6, deleteButton8)
+            self.wednesday_table.setCellWidget(9, 6, deleteButton9)
+
+            self.wednesday_table.setItem(a, 0, QTableWidgetItem(""))
+            self.wednesday_table.setItem(a, 1, QTableWidgetItem(""))
+            self.wednesday_table.setItem(a, 2, QTableWidgetItem(""))
+            self.wednesday_table.setItem(a, 3, QTableWidgetItem(""))
+            self.wednesday_table.setItem(a, 4, QTableWidgetItem(""))
+            self.wednesday_table.setCellWidget(a, 5, NoneButton)
+            self.wednesday_table.setCellWidget(a, 6, addButton)
+
+            changeButton.clicked.connect(lambda num: self._change_item_from_mond(num=1))
+            changeButton1.clicked.connect(lambda num: self._change_item_from_mond(num=2))
+            changeButton2.clicked.connect(lambda num: self._change_item_from_mond(num=3))
+            changeButton3.clicked.connect(lambda num: self._change_item_from_mond(num=4))
+            changeButton4.clicked.connect(lambda num: self._change_item_from_mond(num=5))
+            changeButton5.clicked.connect(lambda num: self._change_item_from_mond(num=6))
+            changeButton6.clicked.connect(lambda num: self._change_item_from_mond(num=7))
+            changeButton7.clicked.connect(lambda num: self._change_item_from_mond(num=8))
+            changeButton8.clicked.connect(lambda num: self._change_item_from_mond(num=9))
+            changeButton9.clicked.connect(lambda num: self._change_item_from_mond(num=10))
+
+            deleteButton.clicked.connect(lambda num: self._delete_item_from_mond(num=0))
+            deleteButton1.clicked.connect(lambda num: self._delete_item_from_mond(num=1))
+            deleteButton2.clicked.connect(lambda num: self._delete_item_from_mond(num=2))
+            deleteButton3.clicked.connect(lambda num: self._delete_item_from_mond(num=3))
+            deleteButton4.clicked.connect(lambda num: self._delete_item_from_mond(num=4))
+            deleteButton5.clicked.connect(lambda num: self._delete_item_from_mond(num=5))
+            deleteButton6.clicked.connect(lambda num: self._delete_item_from_mond(num=6))
+            deleteButton7.clicked.connect(lambda num: self._delete_item_from_mond(num=7))
+            deleteButton8.clicked.connect(lambda num: self._delete_item_from_mond(num=8))
+            deleteButton9.clicked.connect(lambda num: self._delete_item_from_mond(num=9))
+
+            addButton.clicked.connect(lambda: self._add_item_to_mondaytable())
+
         self.wednesday_table.resizeRowsToContents()
 
     def _create_thursday_table(self):
         self.thursday_table = QTableWidget()
         self.thursday_table.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
 
-        self.thursday_table.setColumnCount(6)
-        self.thursday_table.setHorizontalHeaderLabels(["id-Недели", "Предмет", "Время", "Кабинет", "Лектор", ""])
+        self.thursday_table.setColumnCount(8)
+        self.thursday_table.setHorizontalHeaderLabels(["id-Недели", "Предмет", "Время", "Кабинет", "Лектор", "", "", "Идентификатор"])
 
         self._update_thursday_table()
 
@@ -782,23 +952,103 @@ class MainWindow(QWidget):
 
         self.thursday_table.setRowCount(len(records) + 1)
 
+        a = len(records)
+
         for i, records in enumerate(records):
-            joinButton = QPushButton("Join")
+            changeButton = QPushButton("Изменить")
+            changeButton1 = QPushButton("Изменить")
+            changeButton2 = QPushButton("Изменить")
+            changeButton3 = QPushButton("Изменить")
+            changeButton4 = QPushButton("Изменить")
+            changeButton5 = QPushButton("Изменить")
+            changeButton6 = QPushButton("Изменить")
+            changeButton7 = QPushButton("Изменить")
+            changeButton8 = QPushButton("Изменить")
+            changeButton9 = QPushButton("Изменить")
+
+            deleteButton = QPushButton("Удалить")
+            deleteButton1 = QPushButton("Удалить")
+            deleteButton2 = QPushButton("Удалить")
+            deleteButton3 = QPushButton("Удалить")
+            deleteButton4 = QPushButton("Удалить")
+            deleteButton5 = QPushButton("Удалить")
+            deleteButton6 = QPushButton("Удалить")
+            deleteButton7 = QPushButton("Удалить")
+            deleteButton8 = QPushButton("Удалить")
+            deleteButton9 = QPushButton("Удалить")
+
+            addButton = QPushButton("Добавить")
+            NoneButton = QPushButton("☭")
 
             self.thursday_table.setItem(i, 0, QTableWidgetItem(str(records[0])))
             self.thursday_table.setItem(i, 1, QTableWidgetItem(str(records[3])))
             self.thursday_table.setItem(i, 2, QTableWidgetItem(str(records[5])))
             self.thursday_table.setItem(i, 3, QTableWidgetItem(str(records[4])))
             self.thursday_table.setItem(i, 4, QTableWidgetItem(str(records[6])))
-            self.thursday_table.setCellWidget(i, 5, joinButton)
+            self.thursday_table.setItem(i, 7, QTableWidgetItem(str(records[1])))
+
+            self.thursday_table.setCellWidget(0, 5, changeButton)
+            self.thursday_table.setCellWidget(1, 5, changeButton1)
+            self.thursday_table.setCellWidget(2, 5, changeButton2)
+            self.thursday_table.setCellWidget(3, 5, changeButton3)
+            self.thursday_table.setCellWidget(4, 5, changeButton4)
+            self.thursday_table.setCellWidget(5, 5, changeButton5)
+            self.thursday_table.setCellWidget(6, 5, changeButton6)
+            self.thursday_table.setCellWidget(7, 5, changeButton7)
+            self.thursday_table.setCellWidget(8, 5, changeButton8)
+            self.thursday_table.setCellWidget(9, 5, changeButton9)
+
+            self.thursday_table.setCellWidget(0, 6, deleteButton)
+            self.thursday_table.setCellWidget(1, 6, deleteButton1)
+            self.thursday_table.setCellWidget(2, 6, deleteButton2)
+            self.thursday_table.setCellWidget(3, 6, deleteButton3)
+            self.thursday_table.setCellWidget(4, 6, deleteButton4)
+            self.thursday_table.setCellWidget(5, 6, deleteButton5)
+            self.thursday_table.setCellWidget(6, 6, deleteButton6)
+            self.thursday_table.setCellWidget(7, 6, deleteButton7)
+            self.thursday_table.setCellWidget(8, 6, deleteButton8)
+            self.thursday_table.setCellWidget(9, 6, deleteButton9)
+
+            self.thursday_table.setItem(a, 0, QTableWidgetItem(""))
+            self.thursday_table.setItem(a, 1, QTableWidgetItem(""))
+            self.thursday_table.setItem(a, 2, QTableWidgetItem(""))
+            self.thursday_table.setItem(a, 3, QTableWidgetItem(""))
+            self.thursday_table.setItem(a, 4, QTableWidgetItem(""))
+            self.thursday_table.setCellWidget(a, 5, NoneButton)
+            self.thursday_table.setCellWidget(a, 6, addButton)
+
+            changeButton.clicked.connect(lambda num: self._change_item_from_mond(num=1))
+            changeButton1.clicked.connect(lambda num: self._change_item_from_mond(num=2))
+            changeButton2.clicked.connect(lambda num: self._change_item_from_mond(num=3))
+            changeButton3.clicked.connect(lambda num: self._change_item_from_mond(num=4))
+            changeButton4.clicked.connect(lambda num: self._change_item_from_mond(num=5))
+            changeButton5.clicked.connect(lambda num: self._change_item_from_mond(num=6))
+            changeButton6.clicked.connect(lambda num: self._change_item_from_mond(num=7))
+            changeButton7.clicked.connect(lambda num: self._change_item_from_mond(num=8))
+            changeButton8.clicked.connect(lambda num: self._change_item_from_mond(num=9))
+            changeButton9.clicked.connect(lambda num: self._change_item_from_mond(num=10))
+
+            deleteButton.clicked.connect(lambda num: self._delete_item_from_mond(num=0))
+            deleteButton1.clicked.connect(lambda num: self._delete_item_from_mond(num=1))
+            deleteButton2.clicked.connect(lambda num: self._delete_item_from_mond(num=2))
+            deleteButton3.clicked.connect(lambda num: self._delete_item_from_mond(num=3))
+            deleteButton4.clicked.connect(lambda num: self._delete_item_from_mond(num=4))
+            deleteButton5.clicked.connect(lambda num: self._delete_item_from_mond(num=5))
+            deleteButton6.clicked.connect(lambda num: self._delete_item_from_mond(num=6))
+            deleteButton7.clicked.connect(lambda num: self._delete_item_from_mond(num=7))
+            deleteButton8.clicked.connect(lambda num: self._delete_item_from_mond(num=8))
+            deleteButton9.clicked.connect(lambda num: self._delete_item_from_mond(num=9))
+
+            addButton.clicked.connect(lambda: self._add_item_to_mondaytable())
+
         self.thursday_table.resizeRowsToContents()
 
     def _create_friday_table(self):
         self.friday_table = QTableWidget()
         self.friday_table.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
 
-        self.friday_table.setColumnCount(6)
-        self.friday_table.setHorizontalHeaderLabels(["id-Недели", "Предмет", "Время", "Кабинет", "Лектор", ""])
+        self.friday_table.setColumnCount(8)
+        self.friday_table.setHorizontalHeaderLabels(["id-Недели", "Предмет", "Время", "Кабинет", "Лектор", "", "", "Идентификатор"])
 
         self._update_friday_table()
 
@@ -813,17 +1063,94 @@ class MainWindow(QWidget):
 
         self.friday_table.setRowCount(len(records) + 1)
 
+        a = len(records)
+
         for i, records in enumerate(records):
-            joinButton = QPushButton("Join")
+            changeButton = QPushButton("Изменить")
+            changeButton1 = QPushButton("Изменить")
+            changeButton2 = QPushButton("Изменить")
+            changeButton3 = QPushButton("Изменить")
+            changeButton4 = QPushButton("Изменить")
+            changeButton5 = QPushButton("Изменить")
+            changeButton6 = QPushButton("Изменить")
+            changeButton7 = QPushButton("Изменить")
+            changeButton8 = QPushButton("Изменить")
+            changeButton9 = QPushButton("Изменить")
+
+            deleteButton = QPushButton("Удалить")
+            deleteButton1 = QPushButton("Удалить")
+            deleteButton2 = QPushButton("Удалить")
+            deleteButton3 = QPushButton("Удалить")
+            deleteButton4 = QPushButton("Удалить")
+            deleteButton5 = QPushButton("Удалить")
+            deleteButton6 = QPushButton("Удалить")
+            deleteButton7 = QPushButton("Удалить")
+            deleteButton8 = QPushButton("Удалить")
+            deleteButton9 = QPushButton("Удалить")
+
+            addButton = QPushButton("Добавить")
+            NoneButton = QPushButton("☭")
 
             self.friday_table.setItem(i, 0, QTableWidgetItem(str(records[0])))
             self.friday_table.setItem(i, 1, QTableWidgetItem(str(records[3])))
             self.friday_table.setItem(i, 2, QTableWidgetItem(str(records[5])))
             self.friday_table.setItem(i, 3, QTableWidgetItem(str(records[4])))
             self.friday_table.setItem(i, 4, QTableWidgetItem(str(records[6])))
-            self.friday_table.setCellWidget(i, 5, joinButton)
+            self.friday_table.setItem(i, 7, QTableWidgetItem(str(records[1])))
 
-            joinButton.clicked.connect(lambda ch, num=i: self._change_day_from_table(num))
+            self.friday_table.setCellWidget(0, 5, changeButton)
+            self.friday_table.setCellWidget(1, 5, changeButton1)
+            self.friday_table.setCellWidget(2, 5, changeButton2)
+            self.friday_table.setCellWidget(3, 5, changeButton3)
+            self.friday_table.setCellWidget(4, 5, changeButton4)
+            self.friday_table.setCellWidget(5, 5, changeButton5)
+            self.friday_table.setCellWidget(6, 5, changeButton6)
+            self.friday_table.setCellWidget(7, 5, changeButton7)
+            self.friday_table.setCellWidget(8, 5, changeButton8)
+            self.friday_table.setCellWidget(9, 5, changeButton9)
+
+            self.friday_table.setCellWidget(0, 6, deleteButton)
+            self.friday_table.setCellWidget(1, 6, deleteButton1)
+            self.friday_table.setCellWidget(2, 6, deleteButton2)
+            self.friday_table.setCellWidget(3, 6, deleteButton3)
+            self.friday_table.setCellWidget(4, 6, deleteButton4)
+            self.friday_table.setCellWidget(5, 6, deleteButton5)
+            self.friday_table.setCellWidget(6, 6, deleteButton6)
+            self.friday_table.setCellWidget(7, 6, deleteButton7)
+            self.friday_table.setCellWidget(8, 6, deleteButton8)
+            self.friday_table.setCellWidget(9, 6, deleteButton9)
+
+            self.friday_table.setItem(a, 0, QTableWidgetItem(""))
+            self.friday_table.setItem(a, 1, QTableWidgetItem(""))
+            self.friday_table.setItem(a, 2, QTableWidgetItem(""))
+            self.friday_table.setItem(a, 3, QTableWidgetItem(""))
+            self.friday_table.setItem(a, 4, QTableWidgetItem(""))
+            self.friday_table.setCellWidget(a, 5, NoneButton)
+            self.friday_table.setCellWidget(a, 6, addButton)
+
+            changeButton.clicked.connect(lambda num: self._change_item_from_mond(num=1))
+            changeButton1.clicked.connect(lambda num: self._change_item_from_mond(num=2))
+            changeButton2.clicked.connect(lambda num: self._change_item_from_mond(num=3))
+            changeButton3.clicked.connect(lambda num: self._change_item_from_mond(num=4))
+            changeButton4.clicked.connect(lambda num: self._change_item_from_mond(num=5))
+            changeButton5.clicked.connect(lambda num: self._change_item_from_mond(num=6))
+            changeButton6.clicked.connect(lambda num: self._change_item_from_mond(num=7))
+            changeButton7.clicked.connect(lambda num: self._change_item_from_mond(num=8))
+            changeButton8.clicked.connect(lambda num: self._change_item_from_mond(num=9))
+            changeButton9.clicked.connect(lambda num: self._change_item_from_mond(num=10))
+
+            deleteButton.clicked.connect(lambda num: self._delete_item_from_mond(num=0))
+            deleteButton1.clicked.connect(lambda num: self._delete_item_from_mond(num=1))
+            deleteButton2.clicked.connect(lambda num: self._delete_item_from_mond(num=2))
+            deleteButton3.clicked.connect(lambda num: self._delete_item_from_mond(num=3))
+            deleteButton4.clicked.connect(lambda num: self._delete_item_from_mond(num=4))
+            deleteButton5.clicked.connect(lambda num: self._delete_item_from_mond(num=5))
+            deleteButton6.clicked.connect(lambda num: self._delete_item_from_mond(num=6))
+            deleteButton7.clicked.connect(lambda num: self._delete_item_from_mond(num=7))
+            deleteButton8.clicked.connect(lambda num: self._delete_item_from_mond(num=8))
+            deleteButton9.clicked.connect(lambda num: self._delete_item_from_mond(num=9))
+
+            addButton.clicked.connect(lambda: self._add_item_to_mondaytable())
 
         self.friday_table.resizeRowsToContents()
 
